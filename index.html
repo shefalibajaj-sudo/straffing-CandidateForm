@@ -3,7 +3,6 @@
 <head>
   <title>Candidate Application Form</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -80,19 +79,52 @@
     <label>Dealer / Distributor Network Size *</label>
     <input type="number" name="network_size" required>
 
+    <h3>Additional Information</h3>
+    <label>Current CTC (₹ per annum) *</label>
+    <input type="number" name="current_ctc" required>
+
+    <label>Expected CTC (₹ per annum) *</label>
+    <input type="number" name="expected_ctc" required>
+
+    <label>Notice Period *</label>
+    <select name="notice_period" required>
+      <option value="">--Select--</option>
+      <option value="Immediate">Immediate</option>
+      <option value="15 days">15 days</option>
+      <option value="30 days">30 days</option>
+      <option value="60 days">60 days</option>
+      <option value="More than 60 days">More than 60 days</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <label>Willingness to Travel Frequently Inside Territory *</label>
+    <select name="travel_willingness" required>
+      <option value="">--Select--</option>
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <label>Major Sales Achievements (last 2 years) *</label>
+    <textarea name="sales_achievements" placeholder="Key wins, % target achieved, biggest account closed, etc." required></textarea>
+
+    <label>LinkedIn Profile URL (Optional)</label>
+    <input type="url" name="linkedin">
+
+    <label>Upload your latest CV *</label>
+    <input type="file" name="cv" accept="application/pdf" required class="file-upload">
+
     <h3>Language Skills</h3>
     <label>Fluency in Languages *</label>
-    <textarea name="languages" placeholder=" E.g. English – Fluent, Hindi – Conversational, Tamil – Basic" required></textarea>
+    <textarea name="languages" placeholder="E.g. English – Fluent, Hindi – Conversational, Tamil – Basic" required></textarea>
 
     <button type="submit">Submit Application</button>
   </form>
 </div>
 
 <script>
-  // Google Apps Script Web App URL
-  const scriptURL = "https://script.google.com/macros/s/AKfycbyVyUJXQa8mjFkCgnpami_-DyhKsBO77ZUEPHEzKLayItyjD_MHalNdm23GlSFVDwAIYw/exec";
+  const scriptURL = "YOUR_GOOGLE_SCRIPT_WEB_APP_URL";
 
-  // State -> District mapping
   const stateDistrictMap = {
     "Andhra Pradesh": ["Srikakulam", "West Godavari", "Guntur", "NTR (Vijayawada)", "Kurnool", "Tirupati", "Anantapur"],
     "Maharashtra": ["Pune", "Nagpur", "Mumbai", "Jalgaon", "Kolhapur", "Solapur", "Amravati"],
@@ -114,42 +146,33 @@
     }
   });
 
-  // Debuggable Form submission handler
   document.getElementById("candidateForm").addEventListener("submit", async e => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
 
-    console.log("📤 Sending data to Google Script:", data);
+    console.log("📤 Sending data:", data);
 
     try {
       const res = await fetch(scriptURL, {
+        redirect:"follow",
         method: "POST",
         body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" }
       });
 
       const text = await res.text();
-      console.log("📥 Raw response from Google Script:", text);
+      console.log("📥 Response:", text);
 
-      let json;
-      try {
-        json = JSON.parse(text);
-      } catch (parseErr) {
-        throw new Error("Invalid JSON from server: " + parseErr.message);
-      }
-
+      const json = JSON.parse(text);
       if (json.result === "success") {
         alert("✅ Your application has been submitted!");
         e.target.reset();
       } else {
-        console.error("❌ Server returned error:", json.message);
         alert("❌ Server error: " + json.message);
       }
-
     } catch (err) {
-      console.error("❌ Network/Fetch error:", err);
       alert("❌ Network/Fetch error: " + err.message);
     }
   });
