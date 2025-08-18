@@ -53,9 +53,11 @@
     <select id="state" name="state" required>
       <option value="">--Select State--</option>
       <option value="Andhra Pradesh">Andhra Pradesh</option>
-      <option value="Maharashtra">Maharashtra</option>
+      <option value="Telangana">Telangana</option>
       <option value="Karnataka">Karnataka</option>
       <option value="Tamil Nadu">Tamil Nadu</option>
+      <option value="Kerala">Kerala</option>
+      <option value="Maharashtra">Maharashtra</option>
     </select>
 
     <label>Preferred District *</label>
@@ -126,10 +128,32 @@
   const scriptURL = "https://script.google.com/macros/s/AKfycbyVyUJXQa8mjFkCgnpami_-DyhKsBO77ZUEPHEzKLayItyjD_MHalNdm23GlSFVDwAIYw/exec";
 
   const stateDistrictMap = {
-    "Andhra Pradesh": ["Srikakulam", "West Godavari", "Guntur", "NTR (Vijayawada)", "Kurnool", "Tirupati", "Anantapur"],
-    "Maharashtra": ["Pune", "Nagpur", "Mumbai", "Jalgaon", "Kolhapur", "Solapur", "Amravati"],
-    "Karnataka": ["Bengaluru", "Mangaluru", "Yadgir"],
-    "Tamil Nadu": ["Chennai", "Vellore", "Kanchipuram", "Thanjavur", "Krishnagiri", "Ranipet", "Thiruvarur"]
+    "Andhra Pradesh": [
+      "Srikakulam","West Godavari","Guntur","NTR (Vijayawada / Krishna)",
+      "Kurnool","Tirupati / Chittoor","Anantapur"
+    ],
+    "Telangana": [
+      "Ranga Reddy","Medak","Adilabad","Nizamabad","Khammam"
+    ],
+    "Karnataka": [
+      "Chikkaballapur","Tumakuru","Ramanagara","Kolar","Udupi","Uttara Kannada",
+      "Shimoga","Chikmagalur","Hassan","Kodagu","Yadgir"
+    ],
+    "Tamil Nadu": [
+      "Kanchipuram","Ranipet","Tiruvannamalai","Tiruvarur","Nagapattinam",
+      "Mayiladuthurai","Thanjavur","Tirupathur","Krishnagiri","Vellore","Trichy"
+    ],
+    "Kerala": [
+      "Kollam","Wayanad","Kasaragod","Kannur"
+    ],
+    "Maharashtra": [
+      "Mumbai","Mumbai Suburban (24 Territories) Western","Thane","Raigad",
+      "Ratnagiri","Sindhudurg","Nashik","Palaghar","Ahmednagar","Nandurbar",
+      "Dhule","Jalgaon","Pune","Satara","Sangli","Solapur","Latur","Usmanabad",
+      "Beed","Parbhani","Aurangabad","Jalna","Hingoli","Nanded","Buldhana",
+      "Akola","Washim","Amaravati","Yavatmal","Wardha","Bhandara","Gondia",
+      "Gadchiroli","Chandrapur"
+    ]
   };
 
   document.getElementById("state").addEventListener("change", function() {
@@ -165,7 +189,6 @@
       });
 
       const text = await res.text();
-      // console.log("📥 Response:", text);
       console.log("📥 Raw response from Google Script:", text);
 
       let json;
