@@ -21,20 +21,11 @@
     .success-screen h2 { color: #2d3436; }
     .success-screen p { color: #636e72; font-size: 18px; }
     .redirect-note { margin-top: 15px; color: #636e72; font-size: 14px; }
-    /* Header Section */
-    .profile-header { position: relative; }
-    .cover-container { width: 100%; height: 200px; overflow: hidden; }
-    .cover-image { width: 100%; height: auto; }
-    .profile-info { display: flex; align-items: center; padding: 15px; }
-    .logo-wrapper { margin-right: 15px; }
-    .logo-image { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; }
-    .company-details h2 { margin: 0; color: #0a3d62; }
-    .company-details p { margin: 0; color: #636e72; }
   </style>
 </head>
 <body>
 
-<!-- ✅ Header with Cover + Logo -->
+<!-- ✅ Header with Cover + Logo (old style) -->
 <header class="profile-header">
   <div class="cover-container">
     <img src="straffing_com_cover.jpeg" alt="Cover Image" class="cover-image">
@@ -169,12 +160,7 @@
         document.getElementById("formContainer").style.display = "none";
         document.getElementById("successScreen").style.display = "block";
         e.target.reset();
-
-        // 🔁 Auto redirect after 5 sec
-        setTimeout(() => {
-          window.location.href = redirectURL;
-        }, 5000);
-
+        setTimeout(() => { window.location.href = redirectURL; }, 5000);
       } else {
         alert("❌ Error: " + json.message);
       }
