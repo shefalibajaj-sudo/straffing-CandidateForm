@@ -50,10 +50,9 @@ body {
 
 .form-container {
   background: white;
-  max-width: 800px;
-  margin: 0 auto;
-  margin-top: -60px;
-  padding: 30px;
+  max-width: 1000px;   
+  margin: -40px auto 40px; 
+  padding: 40px;       
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
@@ -160,3 +159,4 @@ button:hover { background-color: #004d40; }
     padding: 20px;
   }
 }
+
