@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8" />
   <title>Candidate Application Form</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
 <header class="profile-header">
   <div class="cover-container">
-    <img src="straffing_com_cover.jpeg" alt="Cover Image" class="cover-image">
+    <img src="straffing_com_cover.jpeg" alt="Cover" class="cover-image">
   </div>
   <div class="profile-info">
     <div class="logo-wrapper">
-      <img src="straffing_com_logo.jpeg" alt="Company Logo" class="logo-image">
+      <img src="straffing_com_logo.jpeg" alt="Logo" class="logo-image">
     </div>
     <div class="company-details">
       <h2>Straffing AI</h2>
@@ -24,7 +25,7 @@
 
 <div class="form-container">
   <h2>Candidate Application Form</h2>
-  
+
   <form id="candidateForm">
     <h3>Personal Information</h3>
     <label>Email *</label>
@@ -40,7 +41,7 @@
     <input type="tel" name="mobile" pattern="[0-9]{10}" required>
 
     <label>Age (in years) *</label>
-    <input type="number" name="age" required>
+    <input type="number" name="age" min="16" max="80" required>
 
     <label>Highest Educational Qualification *</label>
     <input type="text" name="qualification" required>
@@ -52,12 +53,8 @@
     <label>Preferred State *</label>
     <select id="state" name="state" required>
       <option value="">--Select State--</option>
-      <option value="Andhra Pradesh">Andhra Pradesh</option>
-      <option value="Telangana">Telangana</option>
-      <option value="Karnataka">Karnataka</option>
-      <option value="Tamil Nadu">Tamil Nadu</option>
-      <option value="Kerala">Kerala</option>
-      <option value="Maharashtra">Maharashtra</option>
+      <option>Andhra Pradesh</option><option>Telangana</option><option>Karnataka</option>
+      <option>Tamil Nadu</option><option>Kerala</option><option>Maharashtra</option>
     </select>
 
     <label>Preferred District *</label>
@@ -91,34 +88,41 @@
     <label>Notice Period *</label>
     <select name="notice_period" required>
       <option value="">--Select--</option>
-      <option value="Immediate">Immediate</option>
-      <option value="15 days">15 days</option>
-      <option value="30 days">30 days</option>
-      <option value="60 days">60 days</option>
-      <option value="More than 60 days">More than 60 days</option>
-      <option value="Other">Other</option>
+      <option>Immediate</option><option>15 days</option><option>30 days</option>
+      <option>60 days</option><option>More than 60 days</option><option>Other</option>
     </select>
 
     <label>Willingness to Travel Frequently Inside Territory *</label>
     <select name="travel_willingness" required>
       <option value="">--Select--</option>
-      <option value="Yes">Yes</option>
-      <option value="No">No</option>
-      <option value="Other">Other</option>
+      <option>Yes</option><option>No</option><option>Other</option>
     </select>
 
     <label>Major Sales Achievements (last 2 years) *</label>
-    <textarea name="sales_achievements" placeholder="Key wins, % target achieved, biggest account closed, etc." required></textarea>
+    <textarea name="sales_achievements" required></textarea>
 
     <label>LinkedIn Profile URL (Optional)</label>
     <input type="url" name="linkedin">
 
-    <label>Upload your latest CV *</label>
-    <input type="file" name="cv" accept="application/pdf" required class="file-upload">
-
     <h3>Language Skills</h3>
-    <label>Fluency in Languages *</label>
-    <textarea name="languages" placeholder="E.g. English – Fluent, Hindi – Conversational, Tamil – Basic" required></textarea>
+    <label>Telugu Fluent? *</label>
+    <select name="telugu_fluent" required>
+      <option value="">--Select--</option>
+      <option>yes</option><option>no</option>
+    </select>
+
+    <label>English Level *</label>
+    <select name="english_level" required>
+      <option value="">--Select--</option>
+      <option>Basic</option><option>Intermediate</option><option>Fluent</option>
+    </select>
+
+    <label>Other Languages *</label>
+    <textarea name="other_languages" required></textarea>
+
+    <h3>CV</h3>
+    <label>Paste Google Drive CV Link *</label>
+    <input type="url" name="cvUrl" id="cvUrl" placeholder="https://drive.google.com/file/d/.../view" required>
 
     <button type="submit">Submit Application</button>
   </form>
@@ -128,89 +132,45 @@
   const scriptURL = "https://script.google.com/macros/s/AKfycbyVyUJXQa8mjFkCgnpami_-DyhKsBO77ZUEPHEzKLayItyjD_MHalNdm23GlSFVDwAIYw/exec";
 
   const stateDistrictMap = {
-    "Andhra Pradesh": [
-      "Srikakulam","West Godavari","Guntur","NTR (Vijayawada / Krishna)",
-      "Kurnool","Tirupati / Chittoor","Anantapur"
-    ],
-    "Telangana": [
-      "Ranga Reddy","Medak","Adilabad","Nizamabad","Khammam"
-    ],
-    "Karnataka": [
-      "Chikkaballapur","Tumakuru","Ramanagara","Kolar","Udupi","Uttara Kannada",
-      "Shimoga","Chikmagalur","Hassan","Kodagu","Yadgir"
-    ],
-    "Tamil Nadu": [
-      "Kanchipuram","Ranipet","Tiruvannamalai","Tiruvarur","Nagapattinam",
-      "Mayiladuthurai","Thanjavur","Tirupathur","Krishnagiri","Vellore","Trichy"
-    ],
-    "Kerala": [
-      "Kollam","Wayanad","Kasaragod","Kannur"
-    ],
-    "Maharashtra": [
-      "Mumbai","Mumbai Suburban (24 Territories) Western","Thane","Raigad",
-      "Ratnagiri","Sindhudurg","Nashik","Palaghar","Ahmednagar","Nandurbar",
-      "Dhule","Jalgaon","Pune","Satara","Sangli","Solapur","Latur","Usmanabad",
-      "Beed","Parbhani","Aurangabad","Jalna","Hingoli","Nanded","Buldhana",
-      "Akola","Washim","Amaravati","Yavatmal","Wardha","Bhandara","Gondia",
-      "Gadchiroli","Chandrapur"
-    ]
+    "Andhra Pradesh": ["Srikakulam","West Godavari","Guntur","NTR (Vijayawada / Krishna)","Kurnool","Tirupati / Chittoor","Anantapur"],
+    "Telangana": ["Ranga Reddy","Medak","Adilabad","Nizamabad","Khammam"],
+    "Karnataka": ["Chikkaballapur","Tumakuru","Ramanagara","Kolar","Udupi","Uttara Kannada","Shimoga","Chikmagalur","Hassan","Kodagu","Yadgir"],
+    "Tamil Nadu": ["Kanchipuram","Ranipet","Tiruvannamalai","Tiruvarur","Nagapattinam","Mayiladuthurai","Thanjavur","Tirupathur","Krishnagiri","Vellore","Trichy"],
+    "Kerala": ["Kollam","Wayanad","Kasaragod","Kannur"],
+    "Maharashtra": ["Mumbai","Mumbai Suburban (24 Territories) Western","Thane","Raigad","Ratnagiri","Sindhudurg","Nashik","Palaghar","Ahmednagar","Nandurbar","Dhule","Jalgaon","Pune","Satara","Sangli","Solapur","Latur","Usmanabad","Beed","Parbhani","Aurangabad","Jalna","Hingoli","Nanded","Buldhana","Akola","Washim","Amaravati","Yavatmal","Wardha","Bhandara","Gondia","Gadchiroli","Chandrapur"]
   };
 
-  document.getElementById("state").addEventListener("change", function() {
+  document.getElementById("state").addEventListener("change", function () {
     const districtSelect = document.getElementById("district");
     districtSelect.innerHTML = '<option value="">--Select District--</option>';
-    const districts = stateDistrictMap[this.value];
-    if (districts) {
-      districts.forEach(d => {
-        const opt = document.createElement("option");
-        opt.value = d;
-        opt.text = d;
-        districtSelect.appendChild(opt);
-      });
-    }
+    const districts = stateDistrictMap[this.value] || [];
+    districts.forEach(d => {
+      const opt = document.createElement("option");
+      opt.value = d; opt.text = d;
+      districtSelect.appendChild(opt);
+    });
   });
 
-  document.getElementById("candidateForm").addEventListener("submit", async e => {
+  document.getElementById("candidateForm").addEventListener("submit", async (e) => {
     e.preventDefault();
-
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries());
-
-    console.log("📤 Sending data:", data);
+    const form = new FormData(e.target);
 
     try {
-      const res = await fetch(scriptURL, {
-        redirect: "follow",
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "text/plain;charset=utf-8",
-        }
-      });
-
-      const text = await res.text();
-      console.log("📥 Raw response from Google Script:", text);
-
-      let json;
-      try {
-        json = JSON.parse(text);
-      } catch (parseErr) {
-        throw new Error("Invalid JSON from server: " + parseErr.message);
-      }
+      // send as x-www-form-urlencoded -> avoids "Unsupported Content-Type"
+      const body = new URLSearchParams([...form]);
+      const res  = await fetch(scriptURL, { method: "POST", body });
+      const json = await res.json();
 
       if (json.result === "success") {
         alert("✅ Your application has been submitted!");
         e.target.reset();
       } else {
-        console.error("❌ Server returned error:", json.message);
-        alert("❌ Server error: " + json.message);
+        alert("❌ Error: " + (json.message || "Unknown error"));
       }
     } catch (err) {
-      console.error("❌ Network/Fetch error:", err);
-      alert("❌ Network/Fetch error: " + err.message);
+      alert("❌ Network error: " + err.message);
     }
   });
 </script>
-
 </body>
 </html>
