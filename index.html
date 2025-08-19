@@ -147,7 +147,7 @@
   document.getElementById("cv").addEventListener("change", function() {
     const cvText = document.getElementById("cvText");
     if (this.files && this.files.length > 0) {
-      cvText.innerHTML = "📄 Selected: <b>" + this.files[0].name + "</b>";
+      cvText.innerHTML = "✅📄<b>" + this.files[0].name + "</b>";
     } else {
       cvText.innerHTML = "Click or drag file to this area to upload<br><small>Support for PDF upload only</small>";
     }
@@ -175,3 +175,4 @@
 </script>
 </body>
 </html>
+
