@@ -26,7 +26,7 @@
 <div class="form-container">
   <h2>Candidate Application Form</h2>
 
-  <form id="candidateForm">
+  <form id="candidateForm" enctype="multipart/form-data">
     <h3>Personal Information</h3>
     <label>Email *</label>
     <input type="email" name="email" required>
@@ -105,17 +105,16 @@
     <input type="url" name="linkedin">
 
     <h3>Language Skills</h3>
-<label>Fluency in Languages *</label>
-<textarea name="other_languages" placeholder="e.g. Hindi, English, Marathi, Telugu" required></textarea>
+    <label>Fluency in Languages *</label>
+    <textarea name="other_languages" placeholder="e.g. Hindi, English, Marathi, Telugu" required></textarea>
 
-  <h3>CV</h3>
-<label>Upload CV (PDF only) *</label>
-
-<div class="file-drop-area">
-  <input type="file" name="cv" id="cv" accept="application/pdf" required>
-  <p id="cvText">Click or drag file to this area to upload<br>
-  <small>Support for PDF upload only</small></p>
-</div>
+    <h3>CV</h3>
+    <label>Upload CV (PDF only) *</label>
+    <div class="file-drop-area">
+      <input type="file" name="cv" id="cv" accept="application/pdf" required>
+      <p id="cvText">Click or drag file to this area to upload<br>
+      <small>Support for PDF upload only</small></p>
+    </div>
 
     <button type="submit">Submit Application</button>
   </form>
@@ -144,19 +143,28 @@
     });
   });
 
+  // Show selected file name
+  document.getElementById("cv").addEventListener("change", function() {
+    const cvText = document.getElementById("cvText");
+    if (this.files && this.files.length > 0) {
+      cvText.innerHTML = "📄 Selected: <b>" + this.files[0].name + "</b>";
+    } else {
+      cvText.innerHTML = "Click or drag file to this area to upload<br><small>Support for PDF upload only</small>";
+    }
+  });
+
   document.getElementById("candidateForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const form = new FormData(e.target);
 
     try {
-      // send as x-www-form-urlencoded -> avoids "Unsupported Content-Type"
-      const body = new URLSearchParams([...form]);
-      const res  = await fetch(scriptURL, { method: "POST", body });
+      const res  = await fetch(scriptURL, { method: "POST", body: form });
       const json = await res.json();
 
       if (json.result === "success") {
-        alert("✅ Your application has been submitted!");
+        alert("✅ Application submitted! CV saved: " + json.cvUrl);
         e.target.reset();
+        document.getElementById("cvText").innerHTML = "Click or drag file to this area to upload<br><small>Support for PDF upload only</small>";
       } else {
         alert("❌ Error: " + (json.message || "Unknown error"));
       }
@@ -167,6 +175,3 @@
 </script>
 </body>
 </html>
-
-
-
