@@ -153,9 +153,26 @@
     }
   });
 
+  // ✅ SUBMIT HANDLER WITH BASE64
   document.getElementById("candidateForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const form = new FormData(e.target);
+
+    // convert CV file to base64
+    const cvFile = form.get("cv");
+    let cvBase64 = "";
+    if (cvFile) {
+      const buffer = await cvFile.arrayBuffer();
+      const bytes = new Uint8Array(buffer);
+      let binary = "";
+      for (let i = 0; i < bytes.byteLength; i++) {
+        binary += String.fromCharCode(bytes[i]);
+      }
+      cvBase64 = btoa(binary);
+    }
+
+    form.delete("cv"); // remove actual file
+    form.append("cvBase64", cvBase64); // send base64 instead
 
     try {
       const res  = await fetch(scriptURL, { method: "POST", body: form });
@@ -175,4 +192,3 @@
 </script>
 </body>
 </html>
-
