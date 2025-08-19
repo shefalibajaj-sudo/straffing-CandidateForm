@@ -21,10 +21,36 @@
     .success-screen h2 { color: #2d3436; }
     .success-screen p { color: #636e72; font-size: 18px; }
     .redirect-note { margin-top: 15px; color: #636e72; font-size: 14px; }
+    /* Header Section */
+    .profile-header { position: relative; }
+    .cover-container { width: 100%; height: 200px; overflow: hidden; }
+    .cover-image { width: 100%; height: auto; }
+    .profile-info { display: flex; align-items: center; padding: 15px; }
+    .logo-wrapper { margin-right: 15px; }
+    .logo-image { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; }
+    .company-details h2 { margin: 0; color: #0a3d62; }
+    .company-details p { margin: 0; color: #636e72; }
   </style>
 </head>
 <body>
 
+<!-- ✅ Header with Cover + Logo -->
+<header class="profile-header">
+  <div class="cover-container">
+    <img src="straffing_com_cover.jpeg" alt="Cover Image" class="cover-image">
+  </div>
+  <div class="profile-info">
+    <div class="logo-wrapper">
+      <img src="straffing_com_logo.jpeg" alt="Company Logo" class="logo-image">
+    </div>
+    <div class="company-details">
+      <h2>Straffing AI</h2>
+      <p>#StraffingAI</p>
+    </div>
+  </div>
+</header>
+
+<!-- ✅ Form -->
 <div class="form-container" id="formContainer">
   <h2>Candidate Application Form</h2>
   
@@ -126,7 +152,7 @@
 
 <script>
   const scriptURL = "https://script.google.com/macros/s/AKfycbyVyUJXQa8mjFkCgnpami_-DyhKsBO77ZUEPHEzKLayItyjD_MHalNdm23GlSFVDwAIYw/exec";
-  const redirectURL = "https://straffing.com/";
+  const redirectURL = "https://straffing.com/"; 
 
   document.getElementById("candidateForm").addEventListener("submit", async e => {
     e.preventDefault();
