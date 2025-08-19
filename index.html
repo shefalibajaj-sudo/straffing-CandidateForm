@@ -169,6 +169,7 @@
         binary += String.fromCharCode(bytes[i]);
       }
       cvBase64 = btoa(binary);
+      form.append("cvFileName", cvFile.name);
     }
 
     form.delete("cv"); // remove actual file
@@ -179,7 +180,7 @@
       const json = await res.json();
 
       if (json.result === "success") {
-        alert("✅ Application submitted! CV saved: " + json.cvUrl);
+        alert("✅ Application submitted! CV saved \n Thank You !! Will reach you out soon");
         e.target.reset();
         document.getElementById("cvText").innerHTML = "Click or drag file to this area to upload<br><small>Support for PDF upload only</small>";
       } else {
@@ -192,3 +193,4 @@
 </script>
 </body>
 </html>
+
